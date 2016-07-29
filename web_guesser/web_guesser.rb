@@ -4,5 +4,5 @@ require 'sinatra/reloader' if development?
 number = rand(101)
 
 get '/' do
-  "The secret number is #{number}".upcase
+  erb :index, :locals => {:number => number}
 end
