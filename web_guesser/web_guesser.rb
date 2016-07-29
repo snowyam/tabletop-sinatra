@@ -1,5 +1,8 @@
 require 'sinatra'
+require 'sinatra/reloader' if development?
+
+number = rand(101)
 
 get '/' do
-  "Hello, World!"
+  "The secret number is #{number}".upcase
 end
