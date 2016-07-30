@@ -1,3 +1,7 @@
+require './lib/guesser'
+require './lib/caesar'
+require './lib/hangman'
+
 class Tabletop < Sinatra::Base
   configure :development do
     register Sinatra::Reloader
@@ -12,7 +16,10 @@ class Tabletop < Sinatra::Base
   end
 
   get '/guesser' do
-    erb :guesser
+    guess = params["guess"].to_i
+    message = check_guess(guess)
+    number = reveal_answer(message)
+    erb :guesser, :locals => {:number => number, :message => message}
   end
 
   get '/caesar' do
