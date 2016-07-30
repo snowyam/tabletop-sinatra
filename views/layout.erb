@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Tabletop Sinatra</title>
+		<link href="/styles.css" rel="stylesheet">
+	</head>
+
+	<body>
+		<div class="main">
+			<a id="title" href="/">Tabletop Sinatra</a>
+			<ul>				
+				<li class="nav"><a href="/guesser">Guesser</a></li>
+				<li class="nav"><a href="/caesar">Caesar Cipher</a></li>		
+				<li class="nav"><a href="/hangman">Hangman</a></li>	
+			</ul>
+		</div>
+
+
+		<%if @error then %>
+			<div class="alert alert-error"><%=@error%></div>
+		<% end %>
+		<%= yield %>
+
+	</body>
+</html>
