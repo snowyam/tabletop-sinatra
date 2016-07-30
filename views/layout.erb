@@ -15,11 +15,12 @@
       </ul>
     </div>
 
-
-    <%if @error then %>
-      <div class="alert alert-error"><%=@error%></div>
-    <% end %>
-    <%= yield %>
+    <div class="box">
+      <%if @error then %>
+        <div class="alert alert-error"><%=@error%></div>
+      <% end %>
+      <%= yield %>
+    </div>
 
   </body>
 </html>

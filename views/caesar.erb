@@ -1,0 +1,15 @@
+<h3>Caesar Cipher</h3>
+<p>Enter a message into the cipher!</p>
+<p>Enter a shift value for the message and run it!</p>
+<form action="/caesar" method="POST">
+  <p>Message: </p>
+  <input type="text" name="message">
+  <br><p>Shift amount: </p>
+  <input type="number" name="shift" value="5">
+  <input type="submit" name="cipher">
+</form>
+<br><br>
+<% if @ciphered %>
+  <p>Original message: <%= @original %> </p>
+  <p>Ciphered message: <%= @ciphered %> </p>
+<% end %>

@@ -26,6 +26,12 @@ class Tabletop < Sinatra::Base
     erb :caesar
   end
 
+  post '/caesar' do
+    @original = params["message"]
+    @ciphered = caesar_cipher(@original, params["shift"].to_i)
+    erb :caesar
+  end
+
   get '/hangman' do
     erb :hangman
   end
