@@ -18,6 +18,9 @@ class Tabletop < Sinatra::Base
   end
 
   get '/guesser' do
+    if session[:secret] == nil
+      new_secret_number
+    end
     guess = params["guess"].to_i
     message = check_guess(guess)
     number = reveal_answer(message)
@@ -67,5 +70,5 @@ class Tabletop < Sinatra::Base
     redirect to('/hangman')
   end
 
-  helpers Noose
+  helpers Secret, Noose
 end
