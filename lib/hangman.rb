@@ -5,12 +5,15 @@ module Noose
     @turn = session[:turn]
     @wrong_guesses = session[:wrong_guesses]
     @word_progress = session[:word_progress]
+    @status = session[:status]
     @start_state = session[:start_state]
   end
 
   def turns_left
-    @turn -= 1
-    @turn
+    session[:turn] -= 1
+    if session[:turn] < 1
+      session[:start_state] = false
+    end
   end
 
   def guessed(guess)
@@ -18,15 +21,19 @@ module Noose
     if guess.length > 1
       if guess == session[:word]
         # Won by guessing entire word.
-        @turn = 1
+        session[:status] = "#{session[:word]}. You've won! Play again!"
+        session[:word_progress] = session[:word]
+        session[:start_state] = false
       end
     else
       if /#{guess}/.match(session[:word]) != nil
-        # A match
+        session[:status] = "A match!"
         update_word(guess)
+        turns_left
       else
-        # No match.
+        session[:status] = "No match!"
         update_wrong(guess)
+        turns_left
       end
     end
   end
@@ -36,7 +43,7 @@ module Noose
   end
 
   def display_wrong
-    p session[:wrong_guesses]
+    session[:wrong_guesses]
   end
 
   def display_answer
@@ -51,7 +58,8 @@ module Noose
     end
     if session[:word] == session[:word_progress]
       # Won by guessing all letters.
-      @turn = 1
+      session[:state] = "#{session[:word]}. You've won! Play again!"
+      session[:start_state] = false
     end
   end
 

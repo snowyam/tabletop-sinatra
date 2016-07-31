@@ -35,11 +35,25 @@ class Tabletop < Sinatra::Base
   end
 
   get '/hangman' do
+    if session[:word] == nil || session[:start_state] == false
+      redirect to('/hangman/start')
+    end
     reloaded_sessions
     erb :hangman
   end
 
+  post '/hangman' do
+    guessed(params["hangman_guess"])
+    redirect to('/hangman')
+  end
+
   get '/hangman/start' do
+    if session[:word] != nil && session[:turn] < 1 && session[:word_progress] != session[:word]
+      session[:status] = "Game over! The answer was: #{session[:word]}. Play again!"
+    elsif session[:word] == nil
+      session[:status] = ""
+    end
+
     session[:word] = get_word  
     session[:turn] = session[:word].length + 2
     session[:wrong_guesses] = []

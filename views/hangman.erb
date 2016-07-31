@@ -1,9 +1,9 @@
 <h3>Hangman</h3>
 <p>Try and guess by letter or word!</p>
-<form>
+<form action="/hangman" method="POST">
   <p>
     Your guess: 
-    <input class="inputbox" type="text" name="hangman_guess">
+    <input class="inputbox" type="text" name="hangman_guess" autofocus>
     <input type="submit" name="Hangman!">
   </p>
 </form>
@@ -11,5 +11,6 @@
 <p>Wrong guesses: <%= @wrong_guesses %> </p>
 <br><br>
 <p class="hangman"> <%= @word_progress %> </p>
+<p>You have <%= @turn %> turns left!</p>
 <br>
-<p> <%= %> </p>
+<p class="status"> <%= @status %> </p>

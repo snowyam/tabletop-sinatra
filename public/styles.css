@@ -73,9 +73,13 @@ h3 {
 
 .hangman {
   text-align: center;
-  font-size: 30px;
+  font-size: 32px;
   letter-spacing: 5px;
   color: #777;
+}
+
+.status {
+  font-weight: 600;
 }
 
 a.red{
