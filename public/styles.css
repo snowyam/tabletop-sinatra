@@ -67,6 +67,10 @@ h3 {
   border: 1px solid #a3a3a3;
 }
 
+.inputbox {
+  width: 85px;
+}
+
 a.red{
   color: #D32F2F;
 }
