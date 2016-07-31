@@ -3,13 +3,13 @@
 <form>
   <p>
     Your guess: 
-    <input class="inputbox" type="text" name="hangman">
+    <input class="inputbox" type="text" name="hangman_guess">
     <input type="submit" name="Hangman!">
   </p>
 </form>
 <br>
-<p>Wrong guesses: <%= %> </p>
+<p>Wrong guesses: <%= @wrong_guesses %> </p>
 <br><br>
-<p class="hangman"> <%= %> </p>
+<p class="hangman"> <%= @word_progress %> </p>
 <br>
 <p> <%= %> </p>

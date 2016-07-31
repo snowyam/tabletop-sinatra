@@ -72,7 +72,9 @@ h3 {
 }
 
 .hangman {
-  font-size: 26px;
+  text-align: center;
+  font-size: 30px;
+  letter-spacing: 5px;
   color: #777;
 }
 

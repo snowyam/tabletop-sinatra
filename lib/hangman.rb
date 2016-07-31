@@ -14,53 +14,49 @@ module Noose
   end
 
   def guessed(guess)
+    guess.to_s.downcase
     if guess.length > 1
-      if guess == @word
-        # Won by entire word
+      if guess == session[:word]
+        # Won by guessing entire word.
         @turn = 1
       end
     else
-      if /#{guess}/.match(@word) != nil
+      if /#{guess}/.match(session[:word]) != nil
         # A match
         update_word(guess)
       else
-        # Wrong, try again.
+        # No match.
         update_wrong(guess)
       end
     end
   end
 
   def display_word_progress
-    @word_progress
+    session[:word_progress]
   end
 
   def display_wrong
-    p @wrong_guesses
+    p session[:wrong_guesses]
   end
 
   def display_answer
-    @word
+    session[:word]
   end
 
   def update_word(guess)
-    @word.each_char.with_index do |char, index|
+    session[:word].each_char.with_index do |char, index|
       if char == guess
-        @word_progress[index] = char
+        session[:word_progress][index] = char
       end
     end
-    if @word == @word_progress
-      # Won
+    if session[:word] == session[:word_progress]
+      # Won by guessing all letters.
       @turn = 1
     end
   end
 
   def update_wrong(guess)
-    @wrong_guesses << guess
-  end
-
-  def guess_input(guess)
-    guess = guess.to_s.downcase
-    guess
+    session[:wrong_guesses] << guess
   end
 
   def get_word
@@ -72,21 +68,3 @@ module Noose
   end
 
 end
-
-=begin # Serial Hangman Reference
-    # Main menu: Start game, load word, load game option
-    if noose.turns_left > 0
-      # Hangman Progress
-      noose.display_word_progress
-      # Attempts
-      noose.display_wrong
-      # Enter guess
-      guess = guess_input(gets.chomp)
-      noose.guessed(guess)
-    else
-      # answer
-      noose.display_answer 
-      # Game over
-      exit = true
-    end
-=end

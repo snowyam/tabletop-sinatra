@@ -35,6 +35,7 @@ class Tabletop < Sinatra::Base
   end
 
   get '/hangman' do
+    reloaded_sessions
     erb :hangman
   end
 
