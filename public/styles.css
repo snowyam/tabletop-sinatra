@@ -71,6 +71,11 @@ h3 {
   width: 85px;
 }
 
+.hangman {
+  font-size: 26px;
+  color: #777;
+}
+
 a.red{
   color: #D32F2F;
 }

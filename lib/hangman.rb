@@ -1,14 +1,11 @@
-=begin
-class Noose
-  attr_accessor :word, :turn, :wrong_guesses, :word_progress
-  def initialize(word, turn)
-    @word = word
-    @turn = turn
-    @wrong_guesses = []
-    @word_progress = ""
-    word.split("").each do |i|
-      @word_progress << ("_")
-    end
+module Noose
+
+  def reloaded_sessions
+    @word = session[:word]
+    @turn = session[:turn]
+    @wrong_guesses = session[:wrong_guesses]
+    @word_progress = session[:word_progress]
+    @start_state = session[:start_state]
   end
 
   def turns_left
@@ -34,7 +31,7 @@ class Noose
   end
 
   def display_word_progress
-    puts @word_progress
+    @word_progress
   end
 
   def display_wrong
@@ -42,7 +39,7 @@ class Noose
   end
 
   def display_answer
-    puts @word
+    @word
   end
 
   def update_word(guess)
@@ -61,47 +58,35 @@ class Noose
     @wrong_guesses << guess
   end
 
-end
+  def guess_input(guess)
+    guess = guess.to_s.downcase
+    guess
+  end
 
-
-def guess_input(guess)
-  guess = guess.to_s.downcase
-  guess
-end
-
-def get_word
-  dict = File.readlines("./lib/dict.txt").sample.chomp.downcase
-  while dict.length < 5
+  def get_word
     dict = File.readlines("./lib/dict.txt").sample.chomp.downcase
+    while dict.length < 5
+      dict = File.readlines("./lib/dict.txt").sample.chomp.downcase
+    end
+    dict
   end
-  return dict
+
 end
 
-# Main game loop
-exit = false
-start = true
-
-while !exit
-  # Main menu: Start game, load word, load game option
-  if start == true   
-    chosen_word = get_word
-    noose = Noose.new(chosen_word, chosen_word.length + 2)
-    start = false
-  end
-
-  if noose.turns_left > 0
-    # Hangman Progress
-    noose.display_word_progress
-    # Attempts
-    noose.display_wrong
-    # Enter guess
-    guess = guess_input(gets.chomp)
-    noose.guessed(guess)
-  else
-    # answer
-    noose.display_answer 
-    # Game over
-    exit = true
-  end
-end
+=begin # Serial Hangman Reference
+    # Main menu: Start game, load word, load game option
+    if noose.turns_left > 0
+      # Hangman Progress
+      noose.display_word_progress
+      # Attempts
+      noose.display_wrong
+      # Enter guess
+      guess = guess_input(gets.chomp)
+      noose.guessed(guess)
+    else
+      # answer
+      noose.display_answer 
+      # Game over
+      exit = true
+    end
 =end

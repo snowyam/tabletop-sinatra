@@ -7,6 +7,8 @@ class Tabletop < Sinatra::Base
     register Sinatra::Reloader
   end
 
+  enable :sessions
+
   not_found do
     erb :error
   end
@@ -35,4 +37,20 @@ class Tabletop < Sinatra::Base
   get '/hangman' do
     erb :hangman
   end
+
+  get '/hangman/start' do
+    session[:word] = get_word  
+    session[:turn] = session[:word].length + 2
+    session[:wrong_guesses] = []
+    session[:word_progress] = ""
+
+    session[:word].split("").each do |i|
+      session[:word_progress] << ("_")
+    end
+
+    session[:start_state] = true
+    redirect to('/hangman')
+  end
+
+  helpers Noose
 end
